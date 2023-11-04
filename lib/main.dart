@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 import 'dart:html' as html;
 import 'package:bloc/bloc.dart';
@@ -23,8 +21,9 @@ import 'app/reports/view_model/app_bloc/app_observer.dart';
 import 'app/support/view_model/support_bloc/support_bloc.dart';
 import 'helpers/constants/constants.dart';
 import 'helpers/localization/app_localization.dart';
-String apiKey= "AIzaSyCTLHSgmMxT_ctRQzmDbL_Vr5dExEQHNf0";
-String projectId= "egyeyes-38cae";
+
+String apiKey = "AIzaSyCTLHSgmMxT_ctRQzmDbL_Vr5dExEQHNf0";
+String projectId = "egyeyes-38cae";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +33,7 @@ void main() async {
   await CacheHelper.init();
   //uId = CacheHelper.getData(key: 'uId');
   uId = html.window.localStorage['uId'];
-  print(uId.toString()+'================');
+  print(uId.toString() + '================');
 
   Firebase.initializeApp(
     options: const FirebaseOptions(
@@ -44,14 +43,10 @@ void main() async {
         storageBucket: "egyeyes-38cae.appspot.com",
         messagingSenderId: "181989827182",
         appId: "1:181989827182:web:d52e739f3e584dff3b7c7f",
-        measurementId: "G-JVEWYQTDKX"
-  ),).then((value) {
+        measurementId: "G-JVEWYQTDKX"),
+  ).then((value) {
     runApp(MyApp());
   });
-
-
-
-
 
   // WindowOptions windowOptions =const WindowOptions(
   //   center: true,
@@ -64,17 +59,15 @@ void main() async {
   //   await windowManager.show();
   //   await windowManager.focus();
   // },);
-
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
+  //mosatfa
   @override
   Widget build(BuildContext context) {
-
-
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -87,19 +80,19 @@ class MyApp extends StatelessWidget {
           create: (context) => ArchiveCubit(),
         ),
         BlocProvider(
-          create: (context)=> CampaignsCubit(),
+          create: (context) => CampaignsCubit(),
         ),
         BlocProvider(
           create: (context) => AppCubit()..getAdminData(),
         ),
       ],
       child: BlocConsumer<LocaleCubit, ChangeLocaleState>(
-        listener: (context, state){},
-        builder: (context, state)=> ScreenUtilInit(
+        listener: (context, state) {},
+        builder: (context, state) => ScreenUtilInit(
           designSize: const Size(360, 690),
           minTextAdapt: true,
           splitScreenMode: true,
-          builder:(context, child)=> MaterialApp(
+          builder: (context, child) => MaterialApp(
             locale: state.locale,
             supportedLocales: const [Locale('en'), Locale('ar')],
             localizationsDelegates: const [
@@ -120,7 +113,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             home: child,
           ),
-          child: uId==null ?  LoginScreen() : LayoutScreen(),
+          child: uId == null ? LoginScreen() : LayoutScreen(),
         ),
       ),
     );
